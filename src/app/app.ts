@@ -7,7 +7,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   template: `
     <div class="shell">
       <header class="shell__header">
-        <a routerLink="/" class="brand">Javier Llerones</a>
+        <a routerLink="/" class="brand">Javier Lerones</a>
 
         <nav class="nav" aria-label="Primary">
           <a

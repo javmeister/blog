@@ -6,11 +6,11 @@ export const routes: Routes = [
 	{
 		path: '',
 		component: HomePageComponent,
-		title: 'Javier Llerones | Blog'
+		title: 'Javier Lerones | Blog'
 	},
 	{
 		path: 'about',
 		component: AboutPageComponent,
-		title: 'About | Javier Llerones'
+		title: 'About | Javier Lerones'
 	}
 ];
