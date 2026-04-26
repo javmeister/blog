@@ -1,27 +1,34 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+
+const NAV_ITEMS = [
+  { label: 'Home', href: '#home' },
+  { label: 'Expertise', href: '#expertise' },
+  { label: 'Work', href: '#work' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Contact', href: '#contact' }
+];
 
 @Component({
   selector: 'app-root',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [RouterOutlet],
   template: `
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
     <div class="shell">
       <header class="shell__header">
-        <a routerLink="/" class="brand">Javier Lerones</a>
+        <a href="#home" class="brand" aria-label="Javier Lerones portfolio home">
+          Javier Lerones
+        </a>
 
         <nav class="nav" aria-label="Primary">
-          <a
-            routerLink="/"
-            routerLinkActive="is-active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            Home
-          </a>
-          <a routerLink="/about" routerLinkActive="is-active">About</a>
+          @for (item of navItems; track item.href) {
+            <a [href]="item.href">{{ item.label }}</a>
+          }
         </nav>
       </header>
 
-      <main class="shell__content">
+      <main id="main-content" class="shell__content">
         <router-outlet />
       </main>
     </div>
@@ -29,66 +36,115 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styles: [
     `
       :host {
-        color: #13293d;
         display: block;
         min-height: 100dvh;
       }
 
+      .skip-link {
+        background: #f3efe5;
+        color: #101010;
+        left: 1rem;
+        padding: 0.75rem 1rem;
+        position: absolute;
+        text-decoration: none;
+        top: -4rem;
+        z-index: 20;
+      }
+
+      .skip-link:focus {
+        top: 1rem;
+      }
+
       .shell {
         min-height: 100dvh;
-        background:
-          radial-gradient(circle at top left, rgba(161, 227, 255, 0.5), transparent 28%),
-          linear-gradient(180deg, #f8fbff 0%, #eef4f7 100%);
       }
 
       .shell__header {
         align-items: center;
+        backdrop-filter: blur(18px);
+        background: rgba(10, 10, 10, 0.72);
+        border: 1px solid rgba(226, 179, 65, 0.12);
+        border-radius: 999px;
+        box-sizing: border-box;
+        inset: 1rem 1rem auto;
+        left: 50%;
+        max-width: min(74rem, calc(100% - 2rem));
+        padding: 1rem 1.25rem;
+        position: sticky;
+        top: 1rem;
+        transform: translateX(-50%);
+        width: calc(100% - 2rem);
+        z-index: 10;
+      }
+
+      .shell__header,
+      .nav {
+        align-items: center;
         display: flex;
         justify-content: space-between;
-        margin: 0 auto;
-        max-width: 64rem;
-        padding: 1.5rem;
       }
 
       .brand {
-        color: inherit;
-        font-size: 1.125rem;
+        color: var(--color-text);
+        font-family: var(--font-display);
+        font-size: 1.1rem;
         font-weight: 700;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.14em;
         text-decoration: none;
         text-transform: uppercase;
       }
 
       .nav {
-        display: flex;
-        gap: 1rem;
+        gap: 1.25rem;
       }
 
       .nav a {
-        border-bottom: 2px solid transparent;
-        color: #335c67;
-        padding-bottom: 0.2rem;
+        color: var(--color-muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
         text-decoration: none;
       }
 
-      .nav a.is-active {
-        border-bottom-color: #335c67;
+      .nav a:hover,
+      .nav a:focus-visible {
+        color: var(--color-text);
       }
 
       .shell__content {
         margin: 0 auto;
-        max-width: 64rem;
-        padding: 1.5rem 1.5rem 4rem;
+        max-width: 80rem;
+        padding: 0 1.25rem 5rem;
+      }
+
+      @media (max-width: 840px) {
+        .shell__header {
+          border-radius: 1.5rem;
+          flex-direction: column;
+          gap: 1rem;
+          inset: 0.75rem 0.75rem auto;
+          transform: translateX(-50%);
+          width: calc(100% - 1.5rem);
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
       }
 
       @media (max-width: 640px) {
-        .shell__header {
-          align-items: flex-start;
-          flex-direction: column;
-          gap: 1rem;
+        .shell__content {
+          padding-inline: 1rem;
+        }
+
+        .nav {
+          gap: 0.75rem 1rem;
         }
       }
     `
   ]
 })
-export class App {}
+export class App {
+  protected readonly navItems = NAV_ITEMS;
+}
