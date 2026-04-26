@@ -1,6 +1,6 @@
-# Blog
+# Portfolio
 
-This repository now hosts an Angular 21 application at the repository root. The app keeps Angular SSR enabled for build-time prerendering, but it is configured to emit fully static output for deployment to GitHub Pages.
+This repository hosts an Angular 21 portfolio application at the repository root. The app keeps Angular SSR enabled for build-time prerendering, but it emits fully static output for deployment to GitHub Pages.
 
 ## Runtime baseline
 
@@ -47,10 +47,11 @@ The site is assumed to be served from the custom-domain root, so the production 
 
 ## Current scope
 
-This first pass intentionally keeps the app plain:
+This first pass implements a static one-page portfolio homepage with placeholder content:
 
-- two starter prerendered routes: `/` and `/about`
-- no browser-only globals in the initial components
+- anchored homepage sections for hero, expertise, work, experience, testimonials, and contact
+- placeholder copy and CSS-based media frames ready to be replaced with real personal information
+- no browser-only globals in the rendered components
 - no live request-time SSR server in production
 
 GitHub Pages serves prerendered Angular output, not a runtime Node SSR process.
